@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from datetime import datetime
-from waitress import serve
 
 app = Flask(__name__)
 
@@ -14,7 +13,6 @@ def index():
     homepage += "<a href=/about>陳昱熏簡介網頁</a><br>"
     return homepage
 
-    
 
 @app.route("/mis")
 def course():
@@ -25,6 +23,8 @@ def course():
 def today():
     now = datetime.now()
     return render_template("today.html", datetime = str(now))
+
+
 @app.route("/about")
 def me():
     return render_template("about.html")
@@ -32,7 +32,8 @@ def me():
 @app.route("/welcome", methods=["GET"])
 def welcome():
     user = request.values.get("nick")
-    return render_template("welcome.html", name=user)
+    return render_template("welcome.html", name= user)
+
 
 @app.route("/account", methods=["GET", "POST"])
 def account():
@@ -45,7 +46,5 @@ def account():
         return render_template("account.html")
 
 
-
 if __name__ == "__main__":
-    #app.run()
-    serve(app, host='0.0.0.0', port=8080)
+    app.run()
